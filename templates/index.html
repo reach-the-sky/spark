@@ -8,12 +8,15 @@
     <title>spark</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script src="static/src/index.js"></script>
+    <link rel="icon" type="image/png" href="../static/images/flash-dynamic-gradient.png">
     <script src="https://kit.fontawesome.com/628c8d2499.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div class="leave-space-h1"></div>
+    <img src="../static/images/flash-dynamic-gradient.png" class="spark-img">
     <h1>spark</h1>
     <div class="center-align">
         <button id="nav" onclick="document.location='/'">Create a container</button>
@@ -37,6 +40,8 @@
                 <input type="text" id="port" name="port"><br>
                 <label for="container_name">Container name:</label><br>
                 <input type="text" id="container_name" name="container_name"><br>
+                <div class="feature-title">Upload a container config:</div><br>
+                <input type="file" id="config_file" name="config_file" class="custom-file-upload"><br>
             </div>
         </form>
     </div>
@@ -48,7 +53,7 @@
     function dropdown_func() {
         if (document.getElementById("dropdown").style.visibility === "hidden") {
             document.getElementById("dropdown").style.visibility = "visible";
-            document.getElementById("feature-box-create-container").style.height = "450px";
+            document.getElementById("feature-box-create-container").style.height = "500px";
         } else {
             document.getElementById("dropdown").style.visibility = "hidden";
             document.getElementById("feature-box-create-container").style.height = "250px";

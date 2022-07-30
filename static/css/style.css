@@ -22,14 +22,28 @@ body {
   /* user-select: none; /* Non-prefixed version, currently */
 }
 
+.leave-space-h1 {
+  padding-top: 30px;
+}
 h1 {
+  transform: translateY(-140px);
   font-family: soehne-cursive;
   color: #ffffff;
   font-weight: bold;
-  font-size: 55px;
+  font-size: 70px;
   text-align: center;
 }
 
+.spark-img {
+  margin: auto;
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin-left: 53.5%;
+  margin-right: auto;
+  padding-top: 20px;
+  transform: rotate(20deg);
+}
 .center-align {
   margin: auto;
   width: 50%;
@@ -37,6 +51,7 @@ h1 {
   justify-content: space-around;
 }
 #nav {
+  transform: translateY(-100px);
   color: #ffffff;
   font-weight: bold;
   font-size: 30px;
@@ -65,6 +80,7 @@ h1 {
 }
 
 #feature-box-create-container {
+  transform: translateY(-40px);
   border-radius: 10px;
   background: #ffffff;
   width: 100px;
@@ -77,6 +93,7 @@ h1 {
 }
 
 #feature-box-list-container {
+  transform: translateY(-40px);
   border-radius: 10px;
   background: #ffffff;
   width: 1000px;
@@ -93,7 +110,7 @@ h1 {
 }
 
 #leave-space {
-  padding-top: 40px;
+  padding-top: 0px;
 }
 
 input[type=text] {
@@ -102,6 +119,15 @@ input[type=text] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  border-radius: 10px;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
 }
 
 button, input[type="submit"], input[type="reset"] {
@@ -112,6 +138,17 @@ button, input[type="submit"], input[type="reset"] {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
 #dropdown {
