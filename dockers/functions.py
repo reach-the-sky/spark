@@ -16,7 +16,7 @@ def list_images():
     return client.images.list()
 
 def list_containers():
-    return client.containers.list() # all=True
+    return client.containers.list(all=True)
 
 def list_containers_data():
     result = []
@@ -56,3 +56,25 @@ def stop_container(id):
 def stop_all_containers():
     for i in list_containers():
         i.stop()
+        
+def kill_container(id):
+    container = client.containers.get(id)
+    if container:
+        try:
+            container.kill()
+        except:
+            pass
+        # container.prune()
+        return "Success"
+    return "None"
+
+def remove_container(id):
+    container = client.containers.get(id)
+    if container:
+        try:
+            container.remove()
+        except:
+            pass
+        # container.prune()
+        return "Success"
+    return "None"

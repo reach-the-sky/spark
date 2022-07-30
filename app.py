@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request as req
+from flask import Flask, render_template, request as req, jsonify
 import dockers
 
 app = Flask(__name__)
@@ -9,43 +9,63 @@ def home():
 
 @app.route("/list")
 def list_containers():
-    return dockers.list_containers_data()
+    return jsonify(dockers.list_containers_data())
     
-@app.route("/run/<name>")
-def run_image(name):
+@app.route("/run")
+def run_image():
     try:
         data = req.args
-        dockers.run(name,ports=data.get("ports"),custom_name=data.get("container_name"))
-        return True
+        if data.get("name"):
+            dockers.run(data.get("name"),ports=data.get("ports"),custom_name=data.get("container_name"))
+            return "Success"
+        return "Error", 500
     except Exception as e:
         print(e)
-        return False, 400
+        return "Error", 400
     
 @app.route("/stop/<id>")
 def stop_container(id):
     try:
         dockers.stop_container(id)
-        return True
+        return "Success"
     except Exception as e:
         print(e)
-        return False, 400
+        return "Error", 400
+    
+@app.route("/kill/<id>")
+def kill_container(id):
+    try:
+        dockers.kill_container(id)
+        return "Success"
+    except Exception as e:
+        print(e)
+        return "Error", 400
+    
+@app.route("/remove/<id>")
+def remove_container(id):
+    try:
+        dockers.remove_container(id)
+        return "Success"
+    except Exception as e:
+        print(e)
+        return "Error", 400
     
 @app.route("/start/<id>")
-def stop_container(id):
+def start_container(id):
     try:
         dockers.start_container(id)
-        return True
+        return "Success"
     except Exception as e:
         print(e)
-        return False, 400
+        return "Error", 400
     
 @app.route("/images")
-def stop_container(id):
+def images(id):
     try:
-        return dockers.list_images_names()
+        return jsonify(dockers.list_images_names())
     except Exception as e:
         print(e)
-        return False, 400
+        return "Error", 400
 
 if __name__ == "__main__":
     app.run(port=8080,debug=True)
