@@ -19,6 +19,7 @@ body {
   font-family: 'Rubik';
   font-weight: normal;
   font-size: 18px;
+  /* user-select: none; /* Non-prefixed version, currently */
 }
 
 h1 {
@@ -67,7 +68,7 @@ h1 {
   border-radius: 10px;
   background: #ffffff;
   width: 100px;
-  height: 200px;
+  height: 250px;
   margin: auto;
   width: 50%;
   color: rgb(89 110 123);

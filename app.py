@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request as req, jsonify
+from flask import Flask, render_template, request as req, jsonify, redirect
 import dockers
 
 app = Flask(__name__)
@@ -6,6 +6,10 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/list.html")
+def list():
+    return render_template("list.html")
 
 @app.route("/list")
 def list_containers():
@@ -15,9 +19,10 @@ def list_containers():
 def run_image():
     try:
         data = req.args
+        print(data.get("name"))
         if data.get("name"):
             dockers.run(data.get("name"),ports=data.get("ports"),custom_name=data.get("container_name"))
-            return "Success"
+            return redirect("/")
         return "Error", 500
     except Exception as e:
         print(e)

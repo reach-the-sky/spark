@@ -2,65 +2,130 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>spark</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-    <script src="static/src/index.js"></script>
-    <script src="https://kit.fontawesome.com/628c8d2499.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>spark</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <script src="static/src/index.js"></script>
+  <script src="https://kit.fontawesome.com/628c8d2499.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1>spark</h1>
-    <div class="center-align">
-        <button id="nav"  onclick="document.location='index.html'">Create a container</button>
-        <button id="nav"  onclick="document.location='list.html'">List containers</button>
-    </div>
-    <div id="leave-space"></div>
-    <div id="feature-box-list-container">
-        <div class="feature-title">Container Listing</div>
-        <br>
-        <table>
-            <tr>
-              <th>id</th>
-              <th>Container name</th>
-              <th>Image Name</th>
-              <th>Start/Stop</th>
-              <th>Kill</th>
-            </tr>
-            <tr>
-              <td>huewfi</td>
-              <td>Maria Anders</td>
-              <td>Germany</td>
-              <td><button class="far fa-pause-circle" id="container_start_stop" onclick="start_stop();"></button></td>
-              <td><button class="far fa-trash-alt"></button></td>
-            </tr>
-            <tr>
-              <td>Centro comercial Moctezuma</td>
-              <td>Francisco Chang</td>
-              <td>Mexico</td>
-              <td><button class="far fa-pause-circle" id="container_start_stop" onclick="start_stop();"></button></td>
-              <td><button class="far fa-trash-alt"></button></td>
-            </tr>
-          </table>
-    </div>
+  <h1>spark</h1>
+  <div class="center-align">
+    <button id="nav" onclick="document.location='/'">Create a container</button>
+    <button id="nav" onclick="document.location='list.html'">List containers</button>
+  </div>
+  <div id="leave-space"></div>
+  <div id="feature-box-list-container">
+    <div class="feature-title">Container Listing</div>
+    <br>
+    <table id="table_list">
+      <tr>
+        <th>id</th>
+        <th>Container name</th>
+        <th>Image Name</th>
+        <th>Start/Stop</th>
+        <th>Kill</th>
+      </tr>
+    </table>
+  </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
 <script>
 
-function start_stop() {
-    console.log("hellllo");
-    const container_classes = document.getElementById("container_start_stop").classList;
+  function start_stop(id) {
+    const container_classes = document.getElementById(id).classList;
     if (container_classes.contains("fa-pause-circle")) {
-        container_classes.remove("fa-pause-circle");
-        container_classes.add("fa-play-circle")
+      status = stop(id);
+      
     } else {
-        container_classes.remove("fa-play-circle");
-        container_classes.add("fa-pause-circle")
+      var status = start(id);
+      container_classes.remove("fa-play-circle");
+      container_classes.add("fa-pause-circle");
     }
-}
+  }
+
+  function list_call() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var response_json = JSON.parse(xhttp.responseText);
+        response_json.forEach(add_row_table);
+      }
+    };
+    xhttp.open("GET", "/list", true);
+    xhttp.send();
+  }
+
+  list_call();
+
+  function add_row_table(item) {
+    var table_list = document.getElementById("table_list")
+    var temp = `
+      <tr>
+          <td>${item["Id"].slice(0, 5)}</td>
+          <td>${item["Name"]}</td>
+          <td>${item["Image"]}</td>`;
+
+    if (item["Running"]) {
+      temp += `<td><button class="far fa-pause-circle" id="${item['Id']}" onclick="start_stop('${item['Id']}')"></button>`
+    }
+    else {
+      temp += `<td><button class="far fa-play-circle" id="${item['Id']}" onclick="start_stop('${item['Id']}')"></button>`
+    }
+
+    temp += `
+          </td>
+          <td><button class="far fa-trash-alt" onclick="removes('${item["Id"]}')"></button></td>
+      </tr >
+      `
+    table_list.innerHTML += temp
+  }
+
+  function start(id) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        container_classes = document.getElementById(id).classList;
+        container_classes.remove("fa-play-circle");
+        container_classes.add("fa-pause-circle");
+      }
+    };
+    xhttp.open("GET", `/start/${id}`, true);
+    xhttp.send();
+  }
+
+  function stop(id) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        container_classes = document.getElementById(id).classList;
+        container_classes.remove("fa-pause-circle");
+        container_classes.add("fa-play-circle");
+      }
+
+    };
+    xhttp.open("GET", `/stop/${id}`, true);
+    xhttp.send();
+  }
+
+
+  function removes(id) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        location.reload();
+      }
+    };
+    xhttp.open("GET", `/remove/${id}`, true);
+    xhttp.send();
+  }
+
 </script>
+
 </html>

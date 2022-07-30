@@ -16,41 +16,44 @@
 <body>
     <h1>spark</h1>
     <div class="center-align">
-        <button id="nav"  onclick="document.location='index.html'">Create a container</button>
-        <button id="nav"  onclick="document.location='list.html'">List containers</button>
+        <button id="nav" onclick="document.location='/'">Create a container</button>
+        <button id="nav" onclick="document.location='list.html'">List containers</button>
     </div>
     <div id="leave-space"></div>
     <div id="feature-box-create-container">
         <div class="feature-title">Create a container</div>
         <br>
-        <form>
+        <form action="/run">
             <label for="image_name">Choose an image name:</label><br>
-            <input type="text" id="image_name" name="image_name"><br>
-        </form>
-        <br><br>
-        <button class="feature-title" onclick="dropdown_func();">Advanced options <i class="far fa-chevron-down"></i></button>
-        <br>
-        <br>
-        <form id="dropdown">
-            <label for="port">Port:</label><br>
-            <input type="text" id="port" name="port"><br>
-            <label for="container_name">Container name:</label><br>
-            <input type="text" id="container_name" name="container_name"><br>
+            <input type="text" id="image_name" name="name"><br>
+            <input type="submit">
+            <br><br>
+            <button class="feature-title" onclick="dropdown_func();">Advanced options <i
+                    class="far fa-chevron-down"></i></button>
+            <br>
+            <br>
+            <div id="dropdown">
+                <label for="port">Port:</label><br>
+                <input type="text" id="port" name="port"><br>
+                <label for="container_name">Container name:</label><br>
+                <input type="text" id="container_name" name="container_name"><br>
+            </div>
         </form>
     </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
 <script>
-function dropdown_func() { 
-    if (document.getElementById("dropdown").style.visibility === "hidden") {
-        document.getElementById("dropdown").style.visibility="visible";
-        document.getElementById("feature-box-create-container").style.height="400px";
-        document.getElementById("feature-box-create-container").style.animationDuration = "6s";
-    } else {
-        document.getElementById("dropdown").style.visibility="hidden";
-        document.getElementById("feature-box-create-container").style.height="200px";
-        document.getElementById("feature-box-create-container").style.animationDuration = "6s";
+    document.getElementById("dropdown").style.visibility = "hidden";
+    function dropdown_func() {
+        if (document.getElementById("dropdown").style.visibility === "hidden") {
+            document.getElementById("dropdown").style.visibility = "visible";
+            document.getElementById("feature-box-create-container").style.height = "450px";
+        } else {
+            document.getElementById("dropdown").style.visibility = "hidden";
+            document.getElementById("feature-box-create-container").style.height = "250px";
+        }
     }
-}
 </script>
+
 </html>
