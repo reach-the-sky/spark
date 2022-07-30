@@ -45,55 +45,31 @@
                 <div class="sub-menu-holder"></div>
             </div>
         </div>
-        <div class="menu-item highlight">
+        <div class="menu-item">
             <div class="menu-text">
                 <a href="#">Services</a>
             </div>
-            <div class="sub-menu double">
-                <div class="icon-box gb a">
-                    <div class="icon"><i class="far fa-question-circle"></i></div>
+            <div class="sub-menu">
+                <div class="icon-box">
+                    <div class="icon"><i class="fal fa-wind-turbine"></i></div>
                     <div class="text">
-                        <div class="title">Consult <i class="far fa-arrow-right"></i></div>
-                        <div class="sub-text">From Professionals</div>
+                        <div class="title">Turbo Editor <i class="far fa-arrow-right"></i></div>
+                        <div class="sub-text">Edit your code while slowing down time.</div>
                     </div>
                 </div>
-                <div class="icon-box gb b">
-                    <div class="icon"><i class="far fa-users-class"></i></div>
+                <div class="icon-box">
+                    <div class="icon"><i class="fal fa-lightbulb-on"></i></div>
                     <div class="text">
-                        <div class="title">Teach <i class="far fa-arrow-right"></i></div>
-                        <div class="sub-text">In Classroom</div>
+                        <div class="title">Idea Creator <i class="far fa-arrow-right"></i></div>
+                        <div class="sub-text">Think of an idea, and have an AI create it.</div>
                     </div>
                 </div>
-                <div class="icon-box gb c">
-                    <div class="icon"><i class="far fa-school"></i></div>
+                <div class="icon-box">
+                    <div class="icon"><i class="fal fa-bomb"></i></div>
                     <div class="text">
-                        <div class="title">Learn <i class="far fa-arrow-right"></i></div>
-                        <div class="sub-text">By Video</div>
+                        <div class="title">Super Collider <i class="far fa-arrow-right"></i></div>
+                        <div class="sub-text">Remove mass from any object.</div>
                     </div>
-                </div>
-                <div class="icon-box gb d">
-                    <div class="icon"><i class="far fa-chess-rook"></i></div>
-                    <div class="text">
-                        <div class="title">Keep <i class="far fa-arrow-right"></i></div>
-                        <div class="sub-text">The Castle</div>
-                    </div>
-                </div>
-                <div class="icon-box gb e">
-                    <div class="icon"><i class="far fa-video-plus"></i></div>
-                    <div class="text">
-                        <div class="title">Become <i class="far fa-arrow-right"></i></div>
-                        <div class="sub-text">A Creator</div>
-                    </div>
-                </div>
-                <div class="icon-box gb f">
-                    <div class="icon"><i class="far fa-cat"></i></div>
-                    <div class="text">
-                        <div class="title">Understand <i class="far fa-arrow-right"></i></div>
-                        <div class="sub-text">Our Journey</div>
-                    </div>
-                </div>
-                <div class="bottom-container">
-                    Ready to dive in? <a href="#">Get Started</a>
                 </div>
                 <div class="sub-menu-holder"></div>
             </div>
@@ -187,8 +163,25 @@
             </div>
         </div>
     </nav>
-
-
+    <div id="leave-space"></div>
+    <div id="feature-box-create-container">
+        <div class="feature-title">Create a container</div>
+        <br>
+        <form>
+            <label for="image_name">Choose an image name:</label><br>
+            <input type="text" id="image_name" name="image_name"><br>
+        </form>
+        <br><br>
+        <button class="feature-title" onclick="dropdown_func();">Advanced options <i class="far fa-chevron-down"></i></button>
+        <br>
+        <br>
+        <form id="dropdown">
+            <label for="port">Port:</label><br>
+            <input type="text" id="port" name="port"><br>
+            <label for="container_name">Container name:</label><br>
+            <input type="text" id="container_name" name="container_name"><br>
+        </form>
+    </div>
     <div id="info-box">
         <ul>
             <li><a target="_top" href="https://twitter.com/thisisfjolt">Follow on Twitter</a></li>
@@ -197,5 +190,18 @@
         </ul>
     </div>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+function dropdown_func() { 
+    if (document.getElementById("dropdown").style.visibility === "hidden") {
+        document.getElementById("dropdown").style.visibility="visible";
+        document.getElementById("feature-box-create-container").style.height="400px";
+        document.getElementById("feature-box-create-container").style.animationDuration = "6s";
+    } else {
+        document.getElementById("dropdown").style.visibility="hidden";
+        document.getElementById("feature-box-create-container").style.height="200px";
+        document.getElementById("feature-box-create-container").style.animationDuration = "6s";
+    }
+}
+</script>
 </html>
