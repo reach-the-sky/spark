@@ -15,7 +15,8 @@ body {
   padding: 0;
   background: linear-gradient(45deg, #102eff, #d2379b);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   font-family: 'Rubik';
   font-weight: normal;
   font-size: 18px;
@@ -47,7 +48,7 @@ h1 {
 }
 .center-align {
   margin: auto;
-  width: 50%;
+  width: 900px;
   display: flex;
   justify-content: space-around;
 }

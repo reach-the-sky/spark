@@ -21,6 +21,7 @@
     <div class="center-align">
         <button id="nav" onclick="document.location='/'">Create a container</button>
         <button id="nav" onclick="document.location='list.html'">List containers</button>
+        <button id="nav" onclick="document.location='config.html'">Custom container</button>
     </div>
     <div id="leave-space"></div>
     <div id="feature-box-create-container">
@@ -40,8 +41,6 @@
                 <input type="text" id="port" name="port"><br>
                 <label for="container_name">Container name:</label><br>
                 <input type="text" id="container_name" name="container_name"><br>
-                <div class="feature-title">Upload a container config:</div><br>
-                <input type="file" id="config_file" name="config_file" ><br>
             </div>
         </form>
     </div>
@@ -53,7 +52,7 @@
     function dropdown_func() {
         if (document.getElementById("dropdown").style.visibility === "hidden") {
             document.getElementById("dropdown").style.visibility = "visible";
-            document.getElementById("feature-box-create-container").style.height = "500px";
+            document.getElementById("feature-box-create-container").style.height = "450px";
         } else {
             document.getElementById("dropdown").style.visibility = "hidden";
             document.getElementById("feature-box-create-container").style.height = "250px";
