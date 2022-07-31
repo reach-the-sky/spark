@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>spark</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <script src="static/src/x-notify.min.js"></script>
     <script src="static/src/index.js"></script>
     <link rel="icon" type="image/png" href="../static/images/flash-dynamic-gradient.png">
     <script src="https://kit.fontawesome.com/628c8d2499.js" crossorigin="anonymous"></script>
@@ -30,7 +31,7 @@
         <form action="/run">
             <label for="image_name">Choose an image name:</label><br>
             <input type="text" id="image_name" name="name"><br>
-            <input type="submit">
+            <input type="submit" onclick="notify_submit()">
             <br><br>
             <button type="button" class="feature-title" onclick="dropdown_func();">Advanced options <i
                     class="far fa-chevron-down"></i></button>
@@ -58,6 +59,10 @@
             document.getElementById("feature-box-create-container").style.height = "250px";
         }
     }
+    function notify_submit(){
+        notify_message(false,"Run",`Starting container`);
+    }
+    
 </script>
 
 </html>

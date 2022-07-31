@@ -1,4 +1,6 @@
+import traceback
 from flask import Flask, render_template, request as req, jsonify, redirect
+import os
 import dockers
 
 app = Flask(__name__)
@@ -11,6 +13,10 @@ def home():
 def list():
     return render_template("list.html")
 
+@app.route("/config.html")
+def config():
+    return render_template("config.html")
+
 @app.route("/list")
 def list_containers():
     return jsonify(dockers.list_containers_data())
@@ -19,13 +25,29 @@ def list_containers():
 def run_image():
     try:
         data = req.args
-        print(data.get("name"))
         if data.get("name"):
             dockers.run(data.get("name"),ports=data.get("ports"),custom_name=data.get("container_name"))
             return redirect("/")
         return "Error", 500
     except Exception as e:
         print(e)
+        return "Error", 400
+    
+@app.route("/config",methods=["POST"])
+def config_image():
+    try:
+        data = req.form
+        print(req.args,req.files,req.form)
+        name = data.get("name")
+        if name:
+            file = req.files.get("file")
+            # file.save(os.path.join("./files",name + ".txt"))
+            dockers.config(file,custom_name=name)
+            return redirect("/")
+        return "Error", 500
+    except Exception as e:
+        print(e)
+        print(traceback.print_exc())
         return "Error", 400
     
 @app.route("/stop/<id>")

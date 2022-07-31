@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>spark</title>
   <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <script src="static/src/x-notify.min.js"></script>
   <script src="static/src/index.js"></script>
   <link rel="icon" type="image/png" href="../static/images/flash-dynamic-gradient.png">
   <script src="https://kit.fontawesome.com/628c8d2499.js" crossorigin="anonymous"></script>
@@ -15,8 +16,8 @@
 </head>
 
 <body>
-    <div class="leave-space-h1"></div>
-    <img src="../static/images/flash-dynamic-gradient.png" class="spark-img">
+  <div class="leave-space-h1"></div>
+  <img src="../static/images/flash-dynamic-gradient.png" class="spark-img">
   <h1>spark</h1>
   <div class="center-align">
     <button id="nav" onclick="document.location='/'">Create a container</button>
@@ -41,12 +42,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
 <script>
-
   function start_stop(id) {
     const container_classes = document.getElementById(id).classList;
     if (container_classes.contains("fa-pause-circle")) {
       status = stop(id);
-      
+
     } else {
       var status = start(id);
       container_classes.remove("fa-play-circle");
@@ -92,6 +92,7 @@
   }
 
   function start(id) {
+    notify_message(false,"Start",`Starting container ${id.slice(0,5)}`);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -105,6 +106,7 @@
   }
 
   function stop(id) {
+    notify_message(true,"Stop",`Stopping container ${id.slice(0,5)}`);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -123,13 +125,16 @@
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        location.reload();
+        notify_message(true,"Deleted",`Deleted container ${id.slice(0,5)}`);
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+
       }
     };
     xhttp.open("GET", `/remove/${id}`, true);
     xhttp.send();
   }
-
 </script>
 
 </html>

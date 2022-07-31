@@ -5,6 +5,9 @@ client = docker.from_env()
 def run(name,ports=None,custom_name=None):
     client.containers.run(name,detach=True,ports=ports,name=custom_name)
     
+def config(file,custom_name=None):
+    client.images.build(fileobj=file,rm=True,tag=custom_name)
+    
 def start_container(id):
     container = client.containers.get(id)
     if container:

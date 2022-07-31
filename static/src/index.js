@@ -1,5 +1,25 @@
 console.clear();
 console.log("hai")
+
+function notify_message(error,title,description) {
+
+    const Notify = new XNotify("TopRight");
+    if (error) {
+        Notify.error({
+            title: title,
+            description: description,
+            duration: 4000
+        });
+    }
+    else {
+        Notify.success({
+            title: title,
+            description: description,
+            duration: 4000
+        });
+    }
+}
+
 // import { SVG } from "https://cdn.skypack.dev/@svgdotjs/svg.js";
 // import {
 //   random,
