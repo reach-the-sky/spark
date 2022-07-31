@@ -1,9 +1,15 @@
+import os
 import json
 import docker
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = docker.from_env()
+print(client.login(username=os.environ.get("username"),password=os.environ.get("password"),email=os.environ.get("email"),registry='https://index.docker.io/v1/'))
 
 def run(name,ports=None,custom_name=None):
+    client.images.pull(name)
     client.containers.run(name,detach=True,ports=ports,name=custom_name)
     
 def config(file,custom_name=None):
@@ -44,6 +50,7 @@ def list_containers_stats():
                 "Name": data["name"],
                 "CPU": data["cpu_stats"]["cpu_usage"]["total_usage"],
                 "Memory": data["memory_stats"].get("usage"),
+                "SystemCPU": data["cpu_stats"].get("system_cpu_usage")
                 
             })
         return result

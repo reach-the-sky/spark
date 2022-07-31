@@ -21,6 +21,10 @@ def config():
 def stats():
     return render_template("stats.html")
 
+@app.route("/error.html")
+def error():
+    return render_template("error.html")
+
 @app.route("/list")
 def list_containers():
     return jsonify(dockers.list_containers_data())
@@ -36,10 +40,10 @@ def run_image():
         if data.get("name"):
             dockers.run(data.get("name"),ports=data.get("ports"),custom_name=data.get("container_name"))
             return redirect("/")
-        return "Error", 500
+        return redirect("/error.html")
     except Exception as e:
         print(e)
-        return "Error", 400
+        return redirect("/error.html")
     
 @app.route("/config",methods=["POST"])
 def config_image():
@@ -52,11 +56,11 @@ def config_image():
             # file.save(os.path.join("./files",name + ".txt"))
             dockers.config(file,custom_name=name)
             return redirect("/")
-        return "Error", 500
+        return redirect("/error.html")
     except Exception as e:
         print(e)
         print(traceback.print_exc())
-        return "Error", 400
+        return redirect("/error.html")
     
 @app.route("/stop/<id>")
 def stop_container(id):
