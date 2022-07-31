@@ -19,6 +19,7 @@ body {
   font-family: 'Rubik';
   font-weight: normal;
   font-size: 18px;
+  overflow: auto;
   /* user-select: none; /* Non-prefixed version, currently */
 }
 
@@ -90,6 +91,7 @@ h1 {
   color: rgb(89 110 123);
   padding: 20px;
   font-size: 20px;
+  overflow: auto;
 }
 
 #feature-box-list-container {
@@ -140,9 +142,9 @@ button, input[type="submit"], input[type="reset"] {
 	outline: inherit;
 }
 
-input[type="file"] {
-  display: none;
-}
+/* input[type="file"] { */
+  /* display: none; */
+/* } */
 
 .custom-file-upload {
   border: 1px solid #ccc;
