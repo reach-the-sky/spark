@@ -23,6 +23,8 @@
         <button id="nav" onclick="document.location='/'">Create a container</button>
         <button id="nav" onclick="document.location='list.html'">List containers</button>
         <button id="nav" onclick="document.location='config.html'" style="color: yellow;">Custom container</button>
+        <button id="nav" onclick="document.location='stats.html'">Stats</button>
+
     </div>
     <div id="leave-space"></div>
     <div id="feature-box-create-container" style="height: 280px;">
@@ -45,7 +47,7 @@
 
 <script>
     function submit() {
-        notify_message(false,"Image",`Configuring Image`);
+        notify_message(false, "Image", `Configuring Image`);
         const formData = new FormData();
         const files = document.getElementById("config_file");
         formData.append("file", files.files[0]);
@@ -64,16 +66,16 @@
         fetch("/config", requestOptions).then(
             (response) => {
                 console.log(response.data);
-                if (response.status > 300){
-                    notify_message(true,"Error",`Check the parameter values`);             
+                if (response.status > 300) {
+                    notify_message(true, "Error", `Check the parameter values`);
                 }
-                else{
-                    notify_message(false,"Success",`Image Created`);             
+                else {
+                    notify_message(false, "Success", `Image Created`);
                 }
                 setTimeout(() => {
-                    window.location.reload();    
+                    window.location.reload();
                 }, 1000);
-                
+
             }
         );
     }

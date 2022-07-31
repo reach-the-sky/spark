@@ -21,9 +21,9 @@
   <h1>spark</h1>
   <div class="center-align">
     <button id="nav" onclick="document.location='/'">Create a container</button>
-    <button id="nav" onclick="document.location='list.html'" style="color: yellow;">List containers</button>
+    <button id="nav" onclick="document.location='list.html'">List containers</button>
     <button id="nav" onclick="document.location='config.html'">Custom container</button>
-    <button id="nav" onclick="document.location='stats.html'">Stats</button>
+    <button id="nav" onclick="document.location='stats.html'"  style="color: yellow;">Stats</button>
   </div>
   <div id="leave-space"></div>
   <div id="feature-box-list-container" style="height: 100%">
@@ -31,11 +31,11 @@
     <br>
     <table id="table_list">
       <tr>
-        <th>id</th>
+        <th>Id</th>
         <th>Container name</th>
-        <th>Image Name</th>
-        <th>Start/Stop</th>
-        <th>Kill</th>
+        <th>CPU</th>
+        <th>Memory</th>
+        <th>Status</th>
       </tr>
     </table>
   </div>
@@ -63,7 +63,7 @@
         response_json.forEach(add_row_table);
       }
     };
-    xhttp.open("GET", "/list", true);
+    xhttp.open("GET", "/stats", true);
     xhttp.send();
   }
 
@@ -75,66 +75,16 @@
       <tr>
           <td>${item["Id"].slice(0, 5)}</td>
           <td>${item["Name"]}</td>
-          <td>${item["Image"]}</td>`;
+          <td>${item["CPU"]}</td>
+          <td>${item["Memory"]}</td>`;
 
-    if (item["Running"]) {
-      temp += `<td><button class="far fa-pause-circle" id="${item['Id']}" onclick="start_stop('${item['Id']}')"></button>`
+    if (item["Memory"] == null) {
+      temp += `<td>Stopped</td>`
     }
     else {
-      temp += `<td><button class="far fa-play-circle" id="${item['Id']}" onclick="start_stop('${item['Id']}')"></button>`
+      temp += `<td>Running</td>`
     }
-
-    temp += `
-          </td>
-          <td><button class="far fa-trash-alt" onclick="removes('${item["Id"]}')"></button></td>
-      </tr >
-      `
     table_list.innerHTML += temp
-  }
-
-  function start(id) {
-    notify_message(false,"Start",`Starting container ${id.slice(0,5)}`);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        container_classes = document.getElementById(id).classList;
-        container_classes.remove("fa-play-circle");
-        container_classes.add("fa-pause-circle");
-      }
-    };
-    xhttp.open("GET", `/start/${id}`, true);
-    xhttp.send();
-  }
-
-  function stop(id) {
-    notify_message(true,"Stop",`Stopping container ${id.slice(0,5)}`);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        container_classes = document.getElementById(id).classList;
-        container_classes.remove("fa-pause-circle");
-        container_classes.add("fa-play-circle");
-      }
-
-    };
-    xhttp.open("GET", `/stop/${id}`, true);
-    xhttp.send();
-  }
-
-
-  function removes(id) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        notify_message(true,"Deleted",`Deleted container ${id.slice(0,5)}`);
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-
-      }
-    };
-    xhttp.open("GET", `/remove/${id}`, true);
-    xhttp.send();
   }
 </script>
 

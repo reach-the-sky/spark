@@ -1,3 +1,4 @@
+import json
 import docker
 
 client = docker.from_env()
@@ -32,6 +33,23 @@ def list_containers_data():
             "Image": i.attrs["Config"]["Image"]
         })
     return result
+
+def list_containers_stats():
+    try:
+        result = []
+        for i in list_containers():
+            data = dict(i.stats(stream=False))
+            result.append({
+                "Id": data["id"],
+                "Name": data["name"],
+                "CPU": data["cpu_stats"]["cpu_usage"]["total_usage"],
+                "Memory": data["memory_stats"].get("usage"),
+                
+            })
+        return result
+    except Exception as e:
+        print("error",e)
+        return []
 
 def list_images_names():
     result = []

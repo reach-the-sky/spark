@@ -17,9 +17,17 @@ def list():
 def config():
     return render_template("config.html")
 
+@app.route("/stats.html")
+def stats():
+    return render_template("stats.html")
+
 @app.route("/list")
 def list_containers():
     return jsonify(dockers.list_containers_data())
+
+@app.route("/stats")
+def stats_containers():
+    return jsonify(dockers.list_containers_stats())
     
 @app.route("/run")
 def run_image():
