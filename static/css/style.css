@@ -59,6 +59,10 @@ h1 {
   font-size: 30px;
 }
 
+#nav:hover {
+  color: yellow;
+}
+
 #info-box {
   padding-right: 20px;
 }
@@ -133,7 +137,7 @@ input[type=text]:focus {
   border: 3px solid #555;
 }
 
-button, input[type="submit"], input[type="reset"] {
+button {
 	background: none;
 	color: inherit;
 	border: none;
@@ -141,6 +145,16 @@ button, input[type="submit"], input[type="reset"] {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #cbc6ca;
+  border: 3px;
+  border-radius: 10px;
+  padding: 5px;
+  font-family: 'Rubik';
+  cursor: pointer;
+  font-size: 18px;
 }
 
 /* input[type="file"] { */
@@ -161,4 +175,19 @@ button, input[type="submit"], input[type="reset"] {
 th, td {
   text-align: left;
   padding: 0 15px;
+}
+
+.read-docs {
+  height: 100px;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  right: 30px;
+  width: 300px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.read-docs:hover {
+  color: yellow;
 }
