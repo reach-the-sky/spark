@@ -76,7 +76,7 @@
       <tr>
           <td>${item["Id"].slice(0, 5)}</td>
           <td>${item["Name"]}</td>
-          <td>${item["CPU"]}</td>
+          <td>${Number(item["CPU"]/item["SystemCPU"]).toFixed(1)}%</td>
           <td>${Number((item["Memory"]/1000000).toFixed(1))}MB</td>`;
 
     if (item["Memory"] == null) {
