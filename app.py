@@ -95,7 +95,7 @@ def start_container(id):
         return "Error", 400
     
 @app.route("/images")
-def images(id):
+def images():
     try:
         return jsonify(dockers.list_images_names())
     except Exception as e:

@@ -29,10 +29,11 @@
     <div id="feature-box-create-container">
         <div class="feature-title">Create a container</div>
         <br>
+        <datalist id="image_names_list"></datalist>
         <form action="/run">
             <label for="image_name">Choose an image name:</label><br>
-            <input type="text" id="image_name" name="name"><br>
-            <input type="submit" onclick="notify_submit()">
+            <input type="text" id="image_name" name="name" list="image_names_list"><br>
+            <input type="submit" style="border-radius: 5px;border: 2px solid gray;padding: 2px;" onclick="notify_submit()">
             <br><br>
             <button type="button" class="feature-title" onclick="dropdown_func();">Advanced options <i
                     class="far fa-chevron-down"></i></button>
@@ -63,6 +64,31 @@
     function notify_submit() {
         notify_message(false, "Run", `Starting container`);
     }
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var response_json = JSON.parse(xhttp.responseText);
+            response_json.forEach(add_options);
+        }
+    };
+    xhttp.open("GET", "/images", true);
+    xhttp.send();
+
+    function add_options(item) {
+        var element = document.getElementById("image_names_list")
+        if (item.indexOf("/") >= 0) {
+            if (item.indexOf(":latest") >= 0) {
+                element.innerHTML += `<option value="${item.slice(0,item.indexOf(":latest"))}">`
+            }
+            else {
+                element.innerHTML += `<option value="${item}">`
+
+            }
+        }
+    }
+
 
 </script>
 
