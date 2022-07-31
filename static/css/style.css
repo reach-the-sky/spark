@@ -177,6 +177,10 @@ th, td {
   padding: 0 15px;
 }
 
+th {
+  font-weight: bold;
+}
+
 .read-docs {
   height: 100px;
   color: white;
