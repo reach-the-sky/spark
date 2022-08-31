@@ -12,6 +12,10 @@ This is a hackathon project for just 12hrs, the problem statement was to make an
 #### Ussage
 > Can deploy this on a remote server and the interface allows you to control it from anywhere.
 
+#### Images
+![CreateContainer](images/CreateContainer.png)
+![Stats](images/Stats.png)
+
 #### Installation
 - ```git clone https://github.com/reach-the-sky/spark.git``` <br>
 - pip install -r requirements.txt
