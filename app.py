@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    if not dockers.check_for_docker():
+        return "Docker Not Found '$ sudo apt-get install docker'"
     return render_template("index.html")
 
 @app.route("/list.html")

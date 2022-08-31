@@ -2,6 +2,7 @@ import os
 import json
 import docker
 from dotenv import load_dotenv
+import subprocess
 
 load_dotenv()
 
@@ -12,6 +13,15 @@ def run(name,ports=None,custom_name=None):
     client.images.pull(name)
     client.containers.run(name,detach=True,ports=ports,name=custom_name)
     
+def check_for_docker():
+    execute = subprocess.Popen("docker --version", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,stdin=subprocess.PIPE)
+    result = execute.stdout.read()
+    result = result.decode()
+    if "Docker version" in result:
+        return True
+    else:
+        return False
+
 def config(file,custom_name=None):
     client.images.build(fileobj=file,rm=True,tag=custom_name)
     
